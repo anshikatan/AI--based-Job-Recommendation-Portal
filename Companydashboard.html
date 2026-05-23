@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Portal</title>
+<link rel="stylesheet" href="companystyle.css">
+</head>
+<body>
+<div class="container">
+<h1>Job Portal</h1>
+<!-- LOGIN -->
+<div id="loginBox">
+<h2>Login</h2>
+<input type="email" id="loginEmail" placeholder="Email">
+<input type="password" id="loginPassword" placeholder="Password">
+<button onclick="login()">Login</button>
+</div>
+<!-- SIGNUP -->
+<div id="signupBox">
+<h2>Signup</h2>
+<input type="text" id="name" placeholder="Name">
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<div>
+<label><input type="radio" name="role" value="user" checked> User</label>
+<label><input type="radio" name="role" value="company"> Company</label>
+</div>
+<button onclick="signup()">Signup</button>
+</div>
+<hr>
+<!-- USER DASHBOARD -->
+<div id="userDashboard" class="hidden">
+<h2>User Dashboard</h2>
+<input type="text" id="search" placeholder="Search jobs..." onkeyup="loadJobs()">
+<div id="jobs"></div>
+</div>
+ 
+ 35
+<!-- COMPANY DASHBOARD -->
+<div id="companyDashboard" class="hidden">
+<h2>Company Dashboard</h2>
+<h3>Post Job</h3>
+<input type="text" id="jobTitle" placeholder="Job Title">
+<input type="text" id="jobLocation" placeholder="Location">
+<input type="text" id="jobSalary" placeholder="Salary">
+<textarea id="jobDesc" placeholder="Description"></textarea>
+<button onclick="postJob()">Post Job</button>
+<h3>Your Jobs</h3>
+<div id="companyJobs"></div>
+</div>
+<button onclick="logout()">Logout</button>
+</div>
+<script src="companyscript.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NexWork – Find Your Next Role</title>
+<link rel="stylesheet" href="style.css"/>
+<link
+href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&fam
+ily=Satoshi:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font￾awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="auth-page">
+<!-- Animated background blobs -->
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+<div class="bg-orb orb-3"></div>
+<div class="auth-container">
+<!-- Brand side -->
+<div class="auth-brand">
+<div class="brand-inner">
+<div class="logo-mark">
+<span>N</span>
+</div>
+<h1 class="brand-name">NexWork</h1>
+<p class="brand-tagline">Where ambition meets opportunity. Discover roles 
+that move you forward.</p>
+<div class="brand-stats">
+<div class="stat"><span class="stat-num">12K+</span><span class="stat￾label">Live Jobs</span></div>
+<div class="stat-divider"></div>
+<div class="stat"><span class="stat-num">3.4K</span><span class="stat￾label">Companies</span></div>
+<div class="stat-divider"></div>
+<div class="stat"><span class="stat-num">98%</span><span class="stat￾label">Satisfaction</span></div>
+</div>
+<div class="floating-badges">
+<div class="badge badge-1"><i class="fa-solid fa-bolt"></i> Instant 
+Apply</div>
+ 
+<div class="badge badge-2"><i class="fa-solid fa-shield-halved"></i>
+Verified Jobs</div>
+<div class="badge badge-3"><i class="fa-solid fa-star"></i> Top 
+Companies</div>
+</div>
+</div>
+</div>
+<!-- Auth form side -->
+<div class="auth-form-side">
+<div class="auth-card">
+<div class="tab-switcher">
+<button class="tab-btn active" id="loginTab"
+onclick="switchTab('login')">Sign In</button>
+<button class="tab-btn" id="signupTab" onclick="switchTab('signup')">Create 
+Account</button>
+<div class="tab-indicator"></div>
+</div>
+<!-- Login Form -->
+<form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+<div class="form-welcome">
+<h2>Welcome back 👋</h2>
+<p>Sign in to continue your job search</p>
+</div>
+<div class="form-group">
+<label><i class="fa-solid fa-envelope"></i> Email Address</label>
+<input type="email" id="loginEmail" placeholder="you@example.com"
+required/>
+<span class="field-error" id="loginEmailErr"></span>
+</div>
+<div class="form-group">
+<label><i class="fa-solid fa-lock"></i> Password</label>
+<div class="pass-wrap">
+<input type="password" id="loginPassword" placeholder="••••••••"
+required/>
+<button type="button" class="toggle-pass"
+onclick="togglePass('loginPassword', this)"><i class="fa-solid fa-eye"></i></button>
+</div>
+<span class="field-error" id="loginPassErr"></span>
+</div>
+<div class="form-row">
+<label class="checkbox-label"><input type="checkbox"/> Remember 
+me</label>
+<a href="#" class="forgot-link">Forgot password?</a>
+</div>
+<button type="submit" class="btn-primary btn-full">
+<span>Sign In</span> <i class="fa-solid fa-arrow-right"></i>
+</button>
+ 
+<div class="auth-divider"><span>or continue with</span></div>
+<div class="social-btns">
+<button type="button" class="social-btn" onclick="demoLogin()"><i
+class="fa-solid fa-user-astronaut"></i> Demo Account</button>
+<button type="button" class="social-btn"><i class="fab fa-google"></i>
+Google</button>
+</div>
+</form>
+<!-- Signup Form -->
+<form id="signupForm" class="auth-form" onsubmit="handleSignup(event)">
+<div class="form-welcome">
+<h2>Join NexWork ✨</h2>
+<p>Create your account and start exploring</p>
+</div>
+<div class="form-row-2">
+<div class="form-group">
+<label><i class="fa-solid fa-user"></i> First Name</label>
+<input type="text" id="signupFirst" placeholder="Alex" required/>
+</div>
+<div class="form-group">
+<label><i class="fa-solid fa-user"></i> Last Name</label>
+<input type="text" id="signupLast" placeholder="Morgan" required/>
+</div>
+</div>
+<div class="form-group">
+<label><i class="fa-solid fa-envelope"></i> Email Address</label>
+<input type="email" id="signupEmail" placeholder="you@example.com"
+required/>
+<span class="field-error" id="signupEmailErr"></span>
+</div>
+<div class="form-group">
+<label><i class="fa-solid fa-briefcase"></i> Job Role / Field</label>
+<input type="text" id="signupRole" placeholder="e.g. Frontend Developer"
+required/>
+</div>
+<div class="form-group">
+<label><i class="fa-solid fa-lock"></i> Password</label>
+<div class="pass-wrap">
+<input type="password" id="signupPassword" placeholder="Min 8 
+characters" required/>
+<button type="button" class="toggle-pass"
+onclick="togglePass('signupPassword', this)"><i class="fa-solid fa-eye"></i></button>
+</div>
+<div class="password-strength" id="passStrength">
+<div class="strength-bar"><div class="strength-fill"
+id="strengthFill"></div></div>
+<span id="strengthLabel">Strength</span>
+ 
+</div>
+</div>
+<div class="form-group">
+<label class="checkbox-label terms-check">
+<input type="checkbox" id="termsCheck" required/>
+I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy 
+Policy</a>
+</label>
+</div>
+<button type="submit" class="btn-primary btn-full">
+<span>Create Account</span> <i class="fa-solid fa-rocket"></i>
+</button>
+</form>
+</div>
+</div>
+</div>
+<!-- Toast Container -->
+<div id="toastContainer" class="toast-container"></div>
+<script src="script.js"></script>
+</body>
+</html>

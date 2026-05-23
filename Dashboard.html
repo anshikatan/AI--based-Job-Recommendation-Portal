@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NexWork – Dashboard</title>
+<link rel="stylesheet" href="style.css"/>
+<link
+href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&fam
+ily=Satoshi:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font￾awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="dashboard-page">
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<div class="nav-inner">
+<a href="dashboard.html" class="nav-logo">
+<div class="logo-mark sm"><span>N</span></div>
+<span class="logo-text">NexWork</span>
+</a>
+<ul class="nav-links" id="navLinks">
+<li><a href="#" class="nav-link active" data-section="home"
+onclick="showSection('home',this)"><i class="fa-solid fa-house"></i> Home</a></li>
+<li><a href="#" class="nav-link" data-section="jobs"
+onclick="showSection('jobs',this)"><i class="fa-solid fa-briefcase"></i>
+Jobs</a></li>
+<li><a href="#" class="nav-link" data-section="applied"
+onclick="showSection('applied',this)"><i class="fa-solid fa-file-circle-check"></i>
+Applied <span class="nav-badge" id="navAppliedBadge">0</span></a></li>
+<li><a href="#" class="nav-link" data-section="profile"
+onclick="showSection('profile',this)"><i class="fa-solid fa-user-circle"></i>
+Profile</a></li>
+</ul>
+<div class="nav-actions">
+<button class="dark-toggle" id="darkToggle" onclick="toggleDark()"
+title="Toggle dark mode">
+<i class="fa-solid fa-moon" id="darkIcon"></i>
+</button>
+<div class="nav-user" id="navUser">
+<div class="user-avatar" id="navAvatar">A</div>
+<span id="navUserName">User</span>
+<i class="fa-solid fa-chevron-down"></i>
+<div class="user-dropdown">
+ 
+ 25
+ <a href="#" onclick="showSection('profile')"><i class="fa-solid fa-id-
+ card"></i> Profile</a>
+<a href="#" onclick="showSection('applied')"><i class="fa-solid fa-list￾check"></i> My Applications</a>
+<div class="dropdown-divider"></div>
+<a href="#" onclick="logout()" class="logout-link"><i class="fa-solid fa￾right-from-bracket"></i> Logout</a>
+</div>
+</div>
+<button class="hamburger" id="hamburger" onclick="toggleMenu()">
+<span></span><span></span><span></span>
+</button>
+</div>
+</div>
+</nav>
+<!-- MAIN CONTENT -->
+<main class="main-content">
+<!-- ===== HOME SECTION ===== -->
+<section class="section" id="homeSection">
+<!-- Hero -->
+<div class="hero-banner">
+<div class="hero-content">
+<div class="hero-label"><i class="fa-solid fa-fire"></i> 247 new jobs 
+today</div>
+<h1 class="hero-title">Find Your <span class="highlight">Dream Job</span>, 
+<span id="heroName">Friend</span></h1>
+<p class="hero-sub">Explore thousands of curated opportunities from top 
+companies around the world.</p>
+<div class="hero-search">
+<div class="search-input-wrap">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input type="text" id="heroSearchInput" placeholder="Search job title, 
+company, skills..." onkeyup="heroSearch()"/>
+</div>
+<button class="btn-primary" onclick="heroSearch(); 
+showSection('jobs')"><i class="fa-solid fa-search"></i> Search</button>
+</div>
+<div class="popular-searches">
+<span>Popular:</span>
+<button onclick="quickSearch('Frontend Developer')">Frontend Dev</button>
+<button onclick="quickSearch('Data Scientist')">Data Scientist</button>
+<button onclick="quickSearch('UI/UX Designer')">UI/UX</button>
+<button onclick="quickSearch('DevOps')">DevOps</button>
+</div>
+</div>
+<div class="hero-visual">
+ 
+ 26
+<div class="hero-card-float card-f1">
+<div class="hc-icon"><i class="fa-brands fa-google"></i></div>
+<div><strong>Software Engineer</strong><br/><small>Google · 
+Remote</small></div>
+</div>
+<div class="hero-card-float card-f2">
+<div class="hc-icon"><i class="fa-brands fa-apple"></i></div>
+<div><strong>iOS Developer</strong><br/><small>Apple · 
+Cupertino</small></div>
+</div>
+<div class="hero-card-float card-f3">
+<i class="fa-solid fa-chart-line"></i>
+<span>+34% hiring surge</span>
+</div>
+</div>
+</div>
+<!-- Category chips -->
+<div class="section-head">
+<h2 class="section-title">Browse by Category</h2>
+<a href="#" class="view-all" onclick="showSection('jobs')">View all <i
+class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div class="category-grid" id="categoryGrid"></div>
+<!-- Featured jobs -->
+<div class="section-head">
+<h2 class="section-title">Featured Jobs</h2>
+<a href="#" class="view-all" onclick="showSection('jobs')">See all jobs <i
+class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div class="jobs-grid" id="featuredGrid"></div>
+<!-- CTA Banner -->
+<div class="cta-banner">
+<div class="cta-text">
+<h3>Are you hiring?</h3>
+<p>Post a job and reach thousands of qualified candidates instantly.</p>
+</div>
+<button class="btn-outline-white" onclick="showAdminPanel()"><i class="fa￾solid fa-plus"></i> Post a Job</button>
+</div>
+</section>
+<!-- ===== JOBS SECTION ===== -->
+<section class="section hidden" id="jobsSection">
+<div class="jobs-page-header">
+<div>
+<h2 class="page-title">Explore Jobs</h2>
+ 
+ 27
+<p id="jobsResultCount" class="result-count">Loading...</p>
+</div>
+<div class="view-toggle">
+<button class="view-btn active" id="gridViewBtn"
+onclick="setView('grid')"><i class="fa-solid fa-grip"></i></button>
+<button class="view-btn" id="listViewBtn" onclick="setView('list')"><i
+class="fa-solid fa-list"></i></button>
+</div>
+</div>
+<div class="jobs-layout">
+<!-- Filters sidebar -->
+<aside class="filters-panel" id="filtersPanel">
+<div class="filter-header">
+<h3><i class="fa-solid fa-sliders"></i> Filters</h3>
+<button class="clear-filters" onclick="clearFilters()">Clear All</button>
+</div>
+<div class="filter-group">
+<label class="filter-label">Search</label>
+<div class="filter-search-wrap">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input type="text" id="searchInput" placeholder="Title or company..."
+oninput="applyFilters()"/>
+</div>
+</div>
+<div class="filter-group">
+<label class="filter-label">Location</label>
+<div id="locationFilters" class="filter-checkboxes"></div>
+</div>
+<div class="filter-group">
+<label class="filter-label">Category</label>
+<div id="categoryFilters" class="filter-checkboxes"></div>
+</div>
+<div class="filter-group">
+<label class="filter-label">Job Type</label>
+<div id="typeFilters" class="filter-checkboxes"></div>
+</div>
+<div class="filter-group">
+<label class="filter-label">Experience</label>
+<div id="expFilters" class="filter-checkboxes"></div>
+</div>
+</aside>
+ 
+ 28
+<!-- Job listings -->
+<div class="jobs-main">
+<div class="filter-bar-mobile">
+<button onclick="toggleFilterPanel()"><i class="fa-solid fa-sliders"></i>
+Filters</button>
+<select onchange="sortJobs(this.value)">
+<option value="recent">Most Recent</option>
+<option value="salary">Highest Salary</option>
+<option value="az">A → Z</option>
+</select>
+</div>
+<div class="jobs-grid" id="jobsGrid"></div>
+<div class="no-results hidden" id="noResults">
+<i class="fa-solid fa-magnifying-glass-minus"></i>
+<h3>No jobs found</h3>
+<p>Try adjusting your search or filters</p>
+<button class="btn-primary" onclick="clearFilters()">Clear 
+Filters</button>
+</div>
+</div>
+</div>
+</section>
+<!-- ===== APPLIED SECTION ===== -->
+<section class="section hidden" id="appliedSection">
+<div class="applied-header">
+<div>
+<h2 class="page-title">My Applications</h2>
+<p id="appliedCount" class="result-count">0 applications</p>
+</div>
+<div class="applied-stats" id="appliedStats"></div>
+</div>
+<div id="appliedGrid" class="applied-grid"></div>
+<div class="no-results hidden" id="noApplied">
+<i class="fa-solid fa-file-circle-xmark"></i>
+<h3>No applications yet</h3>
+<p>Start exploring jobs and apply to your favorites!</p>
+<button class="btn-primary" onclick="showSection('jobs')"><i class="fa-solid 
+fa-briefcase"></i> Browse Jobs</button>
+</div>
+</section>
+<!-- ===== PROFILE SECTION ===== -->
+<section class="section hidden" id="profileSection">
+<div class="profile-layout">
+<div class="profile-sidebar">
+<div class="profile-card">
+ 
+ 29
+<div class="profile-avatar-lg" id="profileAvatarLg">A</div>
+<h3 id="profileFullName">User Name</h3>
+<p id="profileRole" class="profile-role">Job Seeker</p>
+<div class="profile-badges">
+<span class="badge-pill"><i class="fa-solid fa-circle-check"></i>
+Verified</span>
+<span class="badge-pill"><i class="fa-solid fa-star"></i> Active</span>
+</div>
+<div class="profile-meta">
+<div class="meta-item"><i class="fa-solid fa-envelope"></i><span
+id="profileEmail">—</span></div>
+<div class="meta-item"><i class="fa-solid fa-briefcase"></i><span
+id="profileField">—</span></div>
+<div class="meta-item"><i class="fa-solid fa-calendar"></i><span
+id="profileJoined">—</span></div>
+</div>
+<button class="btn-primary btn-full" onclick="openEditProfile()"><i
+class="fa-solid fa-pen"></i> Edit Profile</button>
+</div>
+<div class="profile-card stats-card">
+<h4>Activity</h4>
+<div class="profile-stat-row"><span>Jobs Applied</span><strong
+id="pStatApplied">0</strong></div>
+<div class="profile-stat-row"><span>Jobs 
+Saved</span><strong>0</strong></div>
+<div class="profile-stat-row"><span>Profile Views</span><strong
+id="pStatViews">—</strong></div>
+</div>
+</div>
+<div class="profile-main">
+<div class="profile-card">
+<h4 class="card-section-title"><i class="fa-solid fa-user"></i> About 
+Me</h4>
+<p id="profileAbout" class="profile-about-text">No bio added yet. Tell 
+employers about yourself!</p>
+</div>
+<div class="profile-card">
+<h4 class="card-section-title"><i class="fa-solid fa-tools"></i>
+Skills</h4>
+<div class="skills-wrap" id="profileSkills">
+<span class="skill-chip">Add skills...</span>
+</div>
+</div>
+<div class="profile-card">
+<h4 class="card-section-title"><i class="fa-solid fa-list-check"></i>
+ 
+ 30
+Recent Applications</h4>
+<div id="recentApplied"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- JOB DETAIL MODAL -->
+<div class="modal-overlay hidden" id="jobModal" onclick="closeModal(event)">
+<div class="modal-box" id="modalBox">
+<button class="modal-close" onclick="closeJobModal()"><i class="fa-solid fa￾xmark"></i></button>
+<div id="modalContent"></div>
+</div>
+</div>
+<!-- EDIT PROFILE MODAL -->
+<div class="modal-overlay hidden" id="editProfileModal"
+onclick="closeEditModal(event)">
+<div class="modal-box">
+<button class="modal-close" onclick="closeEditModal()"><i class="fa-solid fa￾xmark"></i></button>
+<h3 class="modal-title"><i class="fa-solid fa-pen"></i> Edit Profile</h3>
+<form onsubmit="saveProfile(event)" class="auth-form active"
+style="padding:0;">
+<div class="form-row-2">
+<div class="form-group">
+<label>First Name</label>
+<input type="text" id="editFirst" required/>
+</div>
+<div class="form-group">
+<label>Last Name</label>
+<input type="text" id="editLast" required/>
+</div>
+</div>
+<div class="form-group">
+<label>Job Role / Field</label>
+<input type="text" id="editRole" required/>
+</div>
+<div class="form-group">
+<label>About Me</label>
+<textarea id="editAbout" rows="3" placeholder="Tell employers about 
+yourself..."></textarea>
+</div>
+<div class="form-group">
+<label>Skills (comma separated)</label>
+<input type="text" id="editSkills" placeholder="e.g. JavaScript, React, 
+ 
+ 31
+Node.js"/>
+</div>
+<div class="form-group">
+<label>Location</label>
+<input type="text" id="editLocation" placeholder="City, Country"/>
+</div>
+<button type="submit" class="btn-primary btn-full"><i class="fa-solid fa￾save"></i> Save Changes</button>
+</form>
+</div>
+</div>
+<!-- ADMIN PANEL MODAL -->
+<div class="modal-overlay hidden" id="adminModal" onclick="closeAdminModal(event)">
+<div class="modal-box">
+<button class="modal-close" onclick="closeAdminModal()"><i class="fa-solid fa￾xmark"></i></button>
+<h3 class="modal-title"><i class="fa-solid fa-plus-circle"></i> Post a New 
+Job</h3>
+<form onsubmit="addNewJob(event)" class="auth-form active" style="padding:0;">
+<div class="form-row-2">
+<div class="form-group">
+<label>Job Title</label>
+<input type="text" id="adminTitle" placeholder="e.g. Frontend Developer"
+required/>
+</div>
+<div class="form-group">
+<label>Company</label>
+<input type="text" id="adminCompany" placeholder="Company name"
+required/>
+</div>
+</div>
+<div class="form-row-2">
+<div class="form-group">
+<label>Location</label>
+<input type="text" id="adminLocation" placeholder="City or Remote"
+required/>
+</div>
+<div class="form-group">
+<label>Salary (optional)</label>
+<input type="text" id="adminSalary" placeholder="e.g. $80K – $120K"/>
+</div>
+</div>
+<div class="form-row-2">
+<div class="form-group">
+<label>Category</label>
+<select id="adminCategory">
+<option>Engineering</option>
+ 
+ 32
+<option>Design</option>
+<option>Marketing</option>
+<option>Data Science</option>
+<option>Product</option>
+<option>Finance</option>
+<option>Sales</option>
+<option>Operations</option>
+</select>
+</div>
+<div class="form-group">
+<label>Job Type</label>
+<select id="adminType">
+<option>Full-time</option>
+<option>Part-time</option>
+<option>Contract</option>
+<option>Freelance</option>
+<option>Internship</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label>Job Description</label>
+<textarea id="adminDesc" rows="4" placeholder="Describe the role..."
+required></textarea>
+</div>
+<div class="form-group">
+<label>Requirements (one per line)</label>
+<textarea id="adminReqs" rows="3" placeholder="3+ years React 
+experience&#10;Strong TypeScript skills&#10;Team player"></textarea>
+</div>
+<button type="submit" class="btn-primary btn-full"><i class="fa-solid fa￾paper-plane"></i> Post Job</button>
+</form>
+</div>
+</div>
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-inner">
+<div class="footer-brand">
+<div class="logo-mark sm"><span>N</span></div>
+<span class="logo-text">NexWork</span>
+<p>Connecting talent with opportunity, one job at a time.</p>
+<div class="social-links">
+<a href="https://linkedin.com" target="_blank" title="LinkedIn"><i
+class="fab fa-linkedin"></i></a>
+<a href="https://github.com" target="_blank" title="GitHub"><i class="fab 
+ 
+ 33
+fa-github"></i></a>
+<a href="mailto:hello@nexwork.io" title="Email"><i class="fa-solid fa￾envelope"></i></a>
+<a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab 
+fa-x-twitter"></i></a>
+</div>
+</div>
+<div class="footer-links">
+<div class="footer-col">
+<h5>For Job Seekers</h5>
+<a href="#">Browse Jobs</a>
+<a href="#">Career Advice</a>
+<a href="#">Resume Builder</a>
+<a href="#">Salary Guide</a>
+</div>
+<div class="footer-col">
+<h5>For Employers</h5>
+<a href="#">Post a Job</a>
+<a href="#">Search Candidates</a>
+<a href="#">Pricing</a>
+<a href="#">Enterprise</a>
+</div>
+<div class="footer-col">
+<h5>Company</h5>
+<a href="#">About Us</a>
+<a href="#">Blog</a>
+<a href="#">Careers</a>
+<a href="#">Contact</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2025 NexWork. All rights reserved.</span>
+<div>
+<a href="#">Privacy Policy</a>
+<a href="#">Terms of Service</a>
+<a href="#">Cookie Policy</a>
+</div>
+</div>
+</footer>
+<!-- Toast -->
+<div id="toastContainer" class="toast-container"></div>
+<script src="script.js"></script>
+</body>
+</html>
+ 
